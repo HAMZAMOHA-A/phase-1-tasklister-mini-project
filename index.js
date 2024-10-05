@@ -1,23 +1,42 @@
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("DOM fully loaded and parsed");
-    
     const form = document.getElementById("create-task-form");
-    const taskList = document.getElementById("tasks")})
+    form.addEventListener("submit", handleTaskSubmission);
+});
 
-    form.addEventListener("submit", (event) => {
-        event.preventDefault();
-        console.log("Form submitted");})
+function handleTaskSubmission(event) {
+    event.preventDefault(); 
 
-        const taskDescription = document.getElementById("new-task-description").value;
-        const taskPriority = document.getElementById("task-priority").value;
+    const taskDescription = document.getElementById("new-task-description").value;
+    const taskPriority = document.getElementById("task-priority").value;
 
-        console.log(`Task: ${taskDescription}, Priority: ${taskPriority}`);
+    const taskItem = createTaskItem(taskDescription, taskPriority);
+    document.getElementById("tasks").appendChild(taskItem);
 
-        const taskItem = document.createElement("li");
-        taskItem.textContent = taskDescription;
+    event.target.reset(); 
+}
 
+function createTaskItem(description, priority) {
+    const taskItem = document.createElement("div");
+    taskItem.textContent = description;
+    taskItem.style.color = getPriorityColor(priority);
+    
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.style.marginLeft = "10px";
+    deleteButton.addEventListener("click", () => {
+        taskItem.remove();
+    });
 
-        console.log(`Task: ${taskDescription}, Priority: ${taskPriority}`);
+    taskItem.appendChild(deleteButton); 
+    
+    return taskItem;
+}
 
-        const taskItem = document.createElement("li");
-        taskItem.textContent = taskDescription;
+function getPriorityColor(priority) {
+    switch (priority) {
+        case "high": return "red";
+        case "medium": return "orange";
+        case "low": return "green";
+        default: return "black";
+    }
+}
