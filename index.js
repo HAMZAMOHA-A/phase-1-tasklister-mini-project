@@ -7,16 +7,16 @@ function handleTaskSubmission(event) {
     event.preventDefault(); 
 
     const taskDescription = document.getElementById("new-task-description").value;
-    const taskPriority = document.getElementById("task-priority").value;
+    const taskPriority = document.getElementById("priority").value;
 
     const taskItem = createTaskItem(taskDescription, taskPriority);
-    document.getElementById("tasks").appendChild(taskItem);
+    document.getElementById("task-list").appendChild(taskItem); 
 
     event.target.reset(); 
 }
 
 function createTaskItem(description, priority) {
-    const taskItem = document.createElement("div");
+    const taskItem = document.createElement("li"); 
     taskItem.textContent = description;
     taskItem.style.color = getPriorityColor(priority);
     
