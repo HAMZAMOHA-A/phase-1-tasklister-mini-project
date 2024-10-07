@@ -8,16 +8,17 @@ function handleTaskSubmission(event) {
 
     const taskDescription = document.getElementById("new-task-description").value;
     const taskPriority = document.getElementById("priority").value;
+    const dueDate = document.getElementById("due-date").value; // Get the due date
 
-    const taskItem = createTaskItem(taskDescription, taskPriority);
+    const taskItem = createTaskItem(taskDescription, taskPriority, dueDate);
     document.getElementById("task-list").appendChild(taskItem); 
 
     event.target.reset(); 
 }
 
-function createTaskItem(description, priority) {
+function createTaskItem(description, priority, dueDate) {
     const taskItem = document.createElement("li"); 
-    taskItem.textContent = description;
+    taskItem.textContent = `${description} (Due: ${dueDate})`; // Show task description and due date
     taskItem.style.color = getPriorityColor(priority);
     
     const deleteButton = document.createElement("button");
